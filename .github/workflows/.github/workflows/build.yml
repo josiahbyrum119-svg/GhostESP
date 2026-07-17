@@ -2,7 +2,7 @@ name: Build GhostESP
 
 on:
   push:
-    branches: [ main ]
+branches: [ Development-deki ]
   workflow_dispatch:
 
 jobs:
