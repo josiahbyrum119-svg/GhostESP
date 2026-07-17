@@ -1,4 +1,4 @@
-name: Build GhostESP (Heltec V3)
+name: Build GhostESP (Heltec V3 only)
 
 on:
   push:
