@@ -1,8 +1,8 @@
-name: Build GhostESP
+name: Build GhostESP (Heltec V3 only)
 
 on:
   push:
-branches: [ Development-deki ]
+    branches: [ Development-deki ]
   workflow_dispatch:
 
 jobs:
@@ -10,15 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Build with ESP-IDF
         uses: espressif/esp-idf-ci-action@v1
         with:
           esp_idf_version: v5.0.1
           target: esp32s3
-      - name: Build
+
+      - name: Build firmware
         run: idf.py build
+
       - name: Upload binary
         uses: actions/upload-artifact@v4
         with:
-          name: ghostesp-firmware
+          name: ghostesp-heltec-v3
           path: build/ghostesp.bin
