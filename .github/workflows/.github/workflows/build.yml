@@ -1,4 +1,4 @@
-name: Build GhostESP (Heltec V3 only)
+name: Build GhostESP (Heltec V3)
 
 on:
   push:
@@ -11,14 +11,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build with ESP-IDF
+      - name: Build with ESP-IDF (Heltec V3)
         uses: espressif/esp-idf-ci-action@v1
         with:
           esp_idf_version: v5.0.1
           target: esp32s3
+          path: '.'
+
+      - name: Copy Heltec V3 config
+        run: |
+          if [ -f configs/sdkconfig.heltecv3 ]; then
+            cp configs/sdkconfig.heltecv3 sdkconfig.defaults
+          fi
 
       - name: Build firmware
-        run: idf.py build
+        run: |
+          . $IDF_PATH/export.sh
+          idf.py set-target esp32s3
+          idf.py build
 
       - name: Upload binary
         uses: actions/upload-artifact@v4
